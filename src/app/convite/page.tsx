@@ -9,7 +9,7 @@ export default function ConvitePagina() {
   const linkConvite = 'http://localhost:3000/convite/6546413232'
 
   return (
-    <div className="min-h-dvh flex items-center justify-between gap-16 flex-clo md:flex-row">
+    <div className="min-h-dvh flex items-center justify-between gap-16 flex-col md:flex-row">
       <div className="flex flex-col gap-10 w-full max-w-[550px]">
         <Image src={logo} alt="carnahall" width={108.5} height={30} />
 

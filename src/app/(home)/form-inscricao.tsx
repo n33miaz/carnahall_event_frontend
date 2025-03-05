@@ -5,6 +5,7 @@ import { InputCampo, InputIcone, InputRaiz } from '@/components/input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ArrowRight, Mail, User } from 'lucide-react'
 import { useForm } from 'react-hook-form'
+import { useReward } from 'react-rewards'
 import { z } from 'zod'
 
 // configuração da validação do zod
@@ -24,8 +25,13 @@ export function FormInscricao() {
     resolver: zodResolver(inscricaoSchema),
   })
 
+  // configuração do reward
+  const { reward } = useReward('rewardId', 'confetti')
+
   function naInscricao(data: InscricaoSchema) {
     console.log(data)
+
+    reward()
   }
 
   return (
@@ -78,6 +84,13 @@ export function FormInscricao() {
 
       <Botao type="submit">
         Confirmar
+
+        {/* elemento que será a origem da animação de confete (reward) */}
+        <span
+          id="rewardId"
+          style={{ width: '0', height: '0', position: 'static', zIndex: 1 }}
+        />
+
         <ArrowRight className="size-6" />
       </Botao>
     </form>
