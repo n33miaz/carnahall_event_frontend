@@ -84,13 +84,11 @@ export function FormInscricao() {
 
       <Botao type="submit">
         Confirmar
-
         {/* elemento que será a origem da animação de confete (reward) */}
         <span
           id="rewardId"
           style={{ width: '0', height: '0', position: 'static', zIndex: 1 }}
         />
-
         <ArrowRight className="size-6" />
       </Botao>
     </form>

@@ -1,9 +1,6 @@
-import Image from 'next/image'
+import { InputLinkConvite } from './input-link-convite'
 import { Ranking } from './ranking'
 import { Status } from './status'
-
-import logo from '../../assets/logo.svg'
-import { InputLinkConvite } from './input-link-convite'
 
 export default function ConvitePagina() {
   const linkConvite = 'http://localhost:3000/convite/6546413232'
@@ -11,10 +8,8 @@ export default function ConvitePagina() {
   return (
     <div className="min-h-dvh flex items-center justify-between gap-16 flex-col md:flex-row">
       <div className="flex flex-col gap-10 w-full max-w-[550px]">
-        <Image src={logo} alt="carnahall" width={108.5} height={30} />
-
         <div className="space-y-2">
-          <h1 className="text-4xl font-semibold font-heading text-gray-100 leading-none">
+          <h1 className="text-4xl font-semibold font-heading text-gray-100 leading-none mt-11.5 md:mt-0">
             Inscrição confirmada!
           </h1>
           <p className="text-gray-300">
