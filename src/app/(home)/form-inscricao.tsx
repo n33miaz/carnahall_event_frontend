@@ -2,8 +2,10 @@
 
 import { Botao } from '@/components/botao'
 import { InputCampo, InputIcone, InputRaiz } from '@/components/input'
+import { postInscricoes } from '@/http/api'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ArrowRight, Mail, User } from 'lucide-react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { useReward } from 'react-rewards'
 import { z } from 'zod'
@@ -17,6 +19,9 @@ const inscricaoSchema = z.object({
 type InscricaoSchema = z.infer<typeof inscricaoSchema>
 
 export function FormInscricao() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
   const {
     register,
     handleSubmit,
@@ -28,10 +33,21 @@ export function FormInscricao() {
   // configuração do reward
   const { reward } = useReward('rewardId', 'confetti')
 
-  function naInscricao(data: InscricaoSchema) {
-    console.log(data)
+  async function naInscricao({ nome, email }: InscricaoSchema) {
+    try {
+      const referencia = searchParams.get('referenciador')
+      const { inscritoId } = await postInscricoes({ nome, email, referencia })
 
-    reward()
+      router.push(`/convite/${inscritoId}`)
+
+      reward()
+    } catch (error) {
+      console.error('Erro ao realizar a inscrição:', error)
+      // Exiba uma mensagem de erro amigável para o usuário
+      alert(
+        'Ocorreu um erro ao realizar a inscrição. Por favor, tente novamente.'
+      )
+    }
   }
 
   return (

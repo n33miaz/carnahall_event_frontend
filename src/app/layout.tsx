@@ -5,7 +5,7 @@ import { Montserrat, Oxanium } from 'next/font/google'
 
 export const metadata: Metadata = {
   title: 'Carnahall',
-  icons: '/public/assets/logo.svg',
+  icons: '../assets/logo.svg',
 }
 
 // configuração das fontes

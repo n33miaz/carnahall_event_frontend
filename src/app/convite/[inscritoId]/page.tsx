@@ -2,8 +2,16 @@ import { InputLinkConvite } from './input-link-convite'
 import { Ranking } from './ranking'
 import { Status } from './status'
 
-export default function ConvitePagina() {
-  const linkConvite = 'http://localhost:3000/convite/6546413232'
+interface ConvitePaginaProps {
+  params: Promise<{
+    inscritoId: string
+  }>
+}
+
+export default async function ConvitePagina(props: ConvitePaginaProps) {
+  const { inscritoId } = await props.params
+
+  const linkConvite = `http://localhost:3333/convites/${inscritoId}`
 
   return (
     <div className="min-h-dvh flex items-center justify-between gap-16 flex-col md:flex-row">
@@ -12,7 +20,7 @@ export default function ConvitePagina() {
           <h1 className="text-4xl font-semibold font-heading text-gray-100 leading-none mt-11.5 md:mt-0">
             Inscrição confirmada!
           </h1>
-          <p className="text-gray-300">
+          <p className="text-gray-300 text-justify">
             Fique por dentro de todas as atualizações em&nbsp;
             <span className="text-purple">
               <a
@@ -31,7 +39,7 @@ export default function ConvitePagina() {
             <h2 className="text-gray-200 text-xl font-heading font-semibold leading-none">
               Indique e participe
             </h2>
-            <p className="text-gray-300">
+            <p className="text-gray-300 text-justify">
               Convide mais pessoas para o evento e concorra no ranking! É só
               compartilher o link abaixo e acompanhar as inscrições:
             </p>
@@ -39,7 +47,7 @@ export default function ConvitePagina() {
 
           <InputLinkConvite linkConvite={linkConvite} />
 
-          <Status />
+          <Status inscritoId={inscritoId} />
         </div>
       </div>
 
