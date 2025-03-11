@@ -1,7 +1,17 @@
 import { TriangleAlert } from 'lucide-react'
 import { FormInscricao } from './form-inscricao'
 
-export default function Home() {
+interface HomePageProps {
+  searchParams: {
+    referenciador?: string // define o tipo do searchParam
+  }
+}
+
+export default function Home({ searchParams }: HomePageProps) {
+  // recebe searchParams como prop
+
+  const referencia = searchParams?.referenciador // acessa o parâmetro
+
   return (
     <div className="min-h-dvh flex flex-col justify-center gap-16">
       <div className="flex flex-col gap-8 w-full max-w-[405px] items-center md:items-start">
@@ -21,12 +31,12 @@ export default function Home() {
               IMPERDÍVEL
             </span>
           </div>
-          <p className="text-gray-300 leading-relaxed text-sm text-justify md:text-base">
+          <p className="text-gray-300 leading-relaxed text-sm md:text-base">
             Uma folia feita por pessoas apaixonadas em reggae, não fique de fora
             e venha curtir em frente a todos os nossos sistemas de som.
             <br />
             <br />
-            06 á 09 de março &nbsp; | &nbsp; 17h ás 05h &nbsp; | &nbsp; Gratuito
+            06 á 09 de março   |   17h ás 05h   |   Gratuito
             <br />
             <br />
             <span className="text-xs text-purple flex justify-center">
@@ -35,7 +45,8 @@ export default function Home() {
           </p>
         </div>
 
-        <FormInscricao />
+        {/* Passa 'referencia' como prop para FormInscricao */}
+        <FormInscricao referencia={referencia} />
       </div>
     </div>
   )

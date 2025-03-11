@@ -5,12 +5,11 @@ import { InputCampo, InputIcone, InputRaiz } from '@/components/input'
 import { postInscricoes } from '@/http/api'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ArrowRight, Mail, User } from 'lucide-react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { useReward } from 'react-rewards'
 import { z } from 'zod'
 
-// configuração da validação do zod
 const inscricaoSchema = z.object({
   nome: z.string().min(2, 'Digite seu nome completo'),
   email: z.string().email('Digite um email válido'),
@@ -18,9 +17,13 @@ const inscricaoSchema = z.object({
 
 type InscricaoSchema = z.infer<typeof inscricaoSchema>
 
-export function FormInscricao() {
+// adicione a prop 'referencia'
+interface FormInscricaoProps {
+  referencia?: string | null
+}
+
+export function FormInscricao({ referencia }: FormInscricaoProps) {
   const router = useRouter()
-  const searchParams = useSearchParams()
 
   const {
     register,
@@ -33,17 +36,15 @@ export function FormInscricao() {
   // configuração do reward
   const { reward } = useReward('rewardId', 'confetti')
 
-  async function naInscricao({ nome, email }: InscricaoSchema) {
+  async function onInscricao({ nome, email }: InscricaoSchema) {
     try {
-      const referencia = searchParams.get('referenciador')
-      const { inscritoId } = await postInscricoes({ nome, email, referencia })
+      const { inscritoId } = await postInscricoes({ nome, email, referencia }) // use a prop 'referencia'
 
       router.push(`/convite/${inscritoId}`)
 
       reward()
     } catch (error) {
       console.error('Erro ao realizar a inscrição:', error)
-      // Exiba uma mensagem de erro amigável para o usuário
       alert(
         'Ocorreu um erro ao realizar a inscrição. Por favor, tente novamente.'
       )
@@ -52,7 +53,7 @@ export function FormInscricao() {
 
   return (
     <form
-      onSubmit={handleSubmit(naInscricao)}
+      onSubmit={handleSubmit(onInscricao)} // use o nome da função correto
       className="bg-gray-700 border border-gray-600 rounded-2xl p-8 space-y-6 w-full md:max-w-[440px]"
     >
       <h2 className="font-heading font-semibold text-gray-200 text-xl">
@@ -79,7 +80,7 @@ export function FormInscricao() {
         </div>
 
         <div className="space-y-2">
-          <InputRaiz>
+          <InputRaiz error={!!errors?.email}>
             <InputIcone>
               <Mail />
             </InputIcone>
