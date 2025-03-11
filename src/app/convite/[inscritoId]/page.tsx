@@ -1,6 +1,7 @@
 import { InputLinkConvite } from './input-link-convite'
 import { Ranking } from './ranking'
 import { Status } from './status'
+import { notFound } from 'next/navigation';
 
 interface ConvitePaginaProps {
   params: Promise<{
@@ -9,7 +10,22 @@ interface ConvitePaginaProps {
 }
 
 export default async function ConvitePagina(props: ConvitePaginaProps) {
-  const { inscritoId } = await props.params
+  let inscritoId: string;
+
+  try {
+     const params = await props.params;
+     inscritoId = params.inscritoId;
+
+    if (!inscritoId || typeof inscritoId !== 'string') { //valida o tipo do parametro
+      notFound();
+      return; // early return para evitar execução adicional
+    }
+
+    // adicionado um cast para string, já que validamos o tipo acima
+  } catch (error) {    
+      notFound(); // ou outra lógica de tratamento de erro, como exibir uma mensagem
+      return null; // evita que o restante da página seja renderizado em caso de erro
+  }
 
   const linkConvite = `http://localhost:3333/convites/${inscritoId}`
 
