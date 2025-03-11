@@ -3,7 +3,7 @@ import { TriangleAlert } from 'lucide-react'
 
 interface HomePageProps {
   searchParams: {
-    referenciador?: string; 
+    referenciador?: string | string[]; 
   };
 }
 
