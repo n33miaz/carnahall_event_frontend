@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form'
 import { useReward } from 'react-rewards'
 import { z } from 'zod'
 
+// configuração da validação do zod
 const inscricaoSchema = z.object({
   nome: z.string().min(2, 'Digite seu nome completo'),
   email: z.string().email('Digite um email válido'),
@@ -17,13 +18,14 @@ const inscricaoSchema = z.object({
 
 type InscricaoSchema = z.infer<typeof inscricaoSchema>
 
-// adicione a prop 'referencia'
+// adiciona a prop 'referencia'
 interface FormInscricaoProps {
-  referencia?: string | null
+    referencia?: string | null;
 }
 
-export function FormInscricao({ referencia }: FormInscricaoProps) {
+export function FormInscricao({referencia}: FormInscricaoProps) { // recebe a prop
   const router = useRouter()
+
 
   const {
     register,
@@ -36,9 +38,9 @@ export function FormInscricao({ referencia }: FormInscricaoProps) {
   // configuração do reward
   const { reward } = useReward('rewardId', 'confetti')
 
-  async function onInscricao({ nome, email }: InscricaoSchema) {
+  async function onInscricao({ nome, email }: InscricaoSchema) { 
     try {
-      const { inscritoId } = await postInscricoes({ nome, email, referencia }) // use a prop 'referencia'
+      const { inscritoId } = await postInscricoes({ nome, email, referencia }) // usa a prop 'referencia'
 
       router.push(`/convite/${inscritoId}`)
 
@@ -53,7 +55,7 @@ export function FormInscricao({ referencia }: FormInscricaoProps) {
 
   return (
     <form
-      onSubmit={handleSubmit(onInscricao)} // use o nome da função correto
+      onSubmit={handleSubmit(onInscricao)} 
       className="bg-gray-700 border border-gray-600 rounded-2xl p-8 space-y-6 w-full md:max-w-[440px]"
     >
       <h2 className="font-heading font-semibold text-gray-200 text-xl">
