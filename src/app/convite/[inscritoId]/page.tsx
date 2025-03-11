@@ -2,6 +2,7 @@ import { InputLinkConvite } from './input-link-convite'
 import { Ranking } from './ranking'
 import { Status } from './status'
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 
 interface ConvitePaginaProps {
   params: Promise<{
@@ -67,7 +68,9 @@ export default async function ConvitePagina(props: ConvitePaginaProps) {
         </div>
       </div>
 
-      <Ranking />
+      <Suspense fallback={<p>Carregando ranking...</p>}>
+        <Ranking />
+      </Suspense>
     </div>
   )
 }
