@@ -1,16 +1,14 @@
 import { TriangleAlert } from 'lucide-react'
 import { FormInscricao } from './form-inscricao'
 
-interface HomePageProps {
-  searchParams: {
-    [key: string]: string | string[] | undefined;
-  };
-}
-
-export default function Home({ searchParams }: HomePageProps) {
-  const referencia = Array.isArray(searchParams.referenciador)
-    ? searchParams.referenciador[0]
-    : (searchParams.referenciador ?? null)
+export default function Home({
+  searchParams,
+}: {
+  searchParams?: { [key: string]: string | string[] | undefined } 
+}) {
+  const referencia = Array.isArray(searchParams?.referenciador)
+    ? (searchParams.referenciador[0] ?? null)
+    : (searchParams?.referenciador ?? null)
 
   return (
     <div className="min-h-dvh flex flex-col justify-center gap-16">
