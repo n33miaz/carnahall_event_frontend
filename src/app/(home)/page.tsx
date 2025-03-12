@@ -3,8 +3,8 @@ import { FormInscricao } from './form-inscricao'
 
 interface HomePageProps {
   searchParams: {
-    referenciador?: string | string[]
-  }
+    [key: string]: string | string[] | undefined;
+  };
 }
 
 export default function Home({ searchParams }: HomePageProps) {
