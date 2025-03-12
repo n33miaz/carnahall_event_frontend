@@ -1,16 +1,14 @@
-import { FormInscricao } from './form-inscricao'
 import { TriangleAlert } from 'lucide-react'
+import { FormInscricao } from './form-inscricao'
 
 interface HomePageProps {
   searchParams: {
-    referenciador?: string | string[]; 
-  };
+    referenciador?: string
+  }
 }
 
-// recebe os searchParams como prop
 export default function Home({ searchParams }: HomePageProps) {
-
-  const referencia = searchParams?.referenciador; // acessa o parâmetro
+  const referencia = searchParams?.referenciador ?? null
 
   return (
     <div className="min-h-dvh flex flex-col justify-center gap-16">
@@ -26,28 +24,27 @@ export default function Home({ searchParams }: HomePageProps) {
             <h2 className="font-heading font-semibold text-gray-200 text-xl">
               Sobre o evento
             </h2>
-          <span className="text-purple font-semibold text-xs flex items-center gap-2">
-            <TriangleAlert className="size-5" />
-            IMPERDÍVEL
-          </span>
+            <span className="text-purple font-semibold text-xs flex items-center gap-2">
+              <TriangleAlert className="size-5" />
+              IMPERDÍVEL
+            </span>
+          </div>
+          <p className="text-gray-300 leading-relaxed text-sm md:text-base">
+            Uma folia feita por pessoas apaixonadas em reggae, não fique de fora
+            e venha curtir em frente a todos os nossos sistemas de som.
+            <br />
+            <br />
+            06 á 09 de março | 17h ás 05h | Gratuito
+            <br />
+            <br />
+            <span className="text-xs text-purple flex justify-center">
+              *evento fictício, criado para fins acadêmicos*
+            </span>
+          </p>
         </div>
-        <p className="text-gray-300 leading-relaxed text-sm md:text-base">
-          Uma folia feita por pessoas apaixonadas em reggae, não fique de fora
-          e venha curtir em frente a todos os nossos sistemas de som.
-          <br />
-          <br />
-          06 á 09 de março   |   17h ás 05h   |   Gratuito
-          <br />
-          <br />
-          <span className="text-xs text-purple flex justify-center">
-            *evento fictício, criado para fins acadêmicos*
-          </span>
-        </p>
-      </div>
 
-      {/* Passa 'referencia' como prop para FormInscricao */}
-      <FormInscricao referencia={referencia} />
+        <FormInscricao referencia={referencia} />
+      </div>
     </div>
-  </div>
   )
 }

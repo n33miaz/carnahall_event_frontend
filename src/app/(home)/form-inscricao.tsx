@@ -10,7 +10,6 @@ import { useForm } from 'react-hook-form'
 import { useReward } from 'react-rewards'
 import { z } from 'zod'
 
-// configuração da validação do zod
 const inscricaoSchema = z.object({
   nome: z.string().min(2, 'Digite seu nome completo'),
   email: z.string().email('Digite um email válido'),
@@ -18,14 +17,13 @@ const inscricaoSchema = z.object({
 
 type InscricaoSchema = z.infer<typeof inscricaoSchema>
 
-// adiciona a prop 'referencia'
 interface FormInscricaoProps {
-    referencia?: string | null;
+  referencia?: string | null 
 }
 
-export function FormInscricao({referencia}: FormInscricaoProps) { // recebe a prop
+export function FormInscricao({ referencia }: FormInscricaoProps) {
+  //recebe a prop
   const router = useRouter()
-
 
   const {
     register,
@@ -38,9 +36,9 @@ export function FormInscricao({referencia}: FormInscricaoProps) { // recebe a pr
   // configuração do reward
   const { reward } = useReward('rewardId', 'confetti')
 
-  async function onInscricao({ nome, email }: InscricaoSchema) { 
+  async function onInscricao({ nome, email }: InscricaoSchema) {
     try {
-      const { inscritoId } = await postInscricoes({ nome, email, referencia }) // usa a prop 'referencia'
+      const { inscritoId } = await postInscricoes({ nome, email, referencia }) 
 
       router.push(`/convite/${inscritoId}`)
 
