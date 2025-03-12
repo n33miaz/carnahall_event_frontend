@@ -22,7 +22,6 @@ interface FormInscricaoProps {
 }
 
 export function FormInscricao({ referencia }: FormInscricaoProps) {
-  //recebe a prop
   const router = useRouter()
 
   const {
@@ -38,7 +37,8 @@ export function FormInscricao({ referencia }: FormInscricaoProps) {
 
   async function onInscricao({ nome, email }: InscricaoSchema) {
     try {
-      const { inscritoId } = await postInscricoes({ nome, email, referencia }) 
+      // A chamada para postInscricoes agora está correta.
+      const { inscritoId } = await postInscricoes({ nome, email, referencia })
 
       router.push(`/convite/${inscritoId}`)
 
@@ -53,7 +53,7 @@ export function FormInscricao({ referencia }: FormInscricaoProps) {
 
   return (
     <form
-      onSubmit={handleSubmit(onInscricao)} 
+      onSubmit={handleSubmit(onInscricao)}
       className="bg-gray-700 border border-gray-600 rounded-2xl p-8 space-y-6 w-full md:max-w-[440px]"
     >
       <h2 className="font-heading font-semibold text-gray-200 text-xl">
